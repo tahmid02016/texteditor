@@ -26,6 +26,9 @@
         <tr><td><button onclick="sentSplit()">বাক্য বিভাজন</button></td><td></td></tr>
     </table></div>
     <script>
+    window.onbeforeunload = function() {
+        return "পৃষ্ঠা পুনরায় লোড করলে লেখা মুছে যাবে।";
+    }
     function copy() {
         let textarea = document.getElementById("textarea");
         textarea.select();
