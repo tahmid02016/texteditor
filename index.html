@@ -23,7 +23,7 @@
     <div><textarea id="textarea" placeholder="এখানে লিখুন..."></textarea></div>
     <div style="text-align:center;"><table>
         <tr><td><button onclick="normalizeNukta()">নুকতা সংশোধন</button></td><td><button onclick="copy()">অনুলিপি</button></td></tr>
-        <tr><td><button onclick="sentSplit()">বাক্য বিভাজন</button></td><td></td></tr>
+        <tr><td><button onclick="sentSplit()">বাক্য বিভাজন</button></td><td><button onclick="wordSplit()">শব্দ বিভাজন</button></td></tr>
     </table></div>
     <script>
     window.onbeforeunload = function() {
@@ -64,6 +64,19 @@
         sentences = sentences.map (strip);
         let splittedText = sentences.join('\n');
         textarea.value = splittedText;
+    }
+    function removeDuplicates(arr) {
+        return arr.filter((item, index) => arr.indexOf(item) === index);
+    }
+    function wordSplit() {
+        let textarea = document.getElementById("textarea");
+        let text = textarea.value;
+        let words = text.split(/[\s\.\?\!।\;\*\&\#\(\)\[\]\{\}\|\+\—\%]/);
+        words = removeDuplicates(words).sort();
+        if (words[0] == '') {
+            words.shift(0);
+        }
+        textarea.value = words.join('\n');
     }
     </script>
 </body>
