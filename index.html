@@ -65,6 +65,12 @@
         let splittedText = sentences.join('\n');
         textarea.value = splittedText;
     }
+    func wordSplit() {
+        let textarea = document.getElementById("textarea");
+        let text = textarea.value;
+        let words = text.split(/\s\.\?\!।\;\*\&\#\(\)\[\]\{\}\|\+\—\%/);
+        textarea.value = sentences.join('\n');
+    }
     </script>
 </body>
 </html>
