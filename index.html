@@ -11,11 +11,13 @@
     html,body {margin:0; padding:0;}
     body {background-color: #121212; color:white; font-family: 'Noto Serif Bengali', serif; font-size: 18px;}
     h2 {margin: 5%; font-weight:200;}
-    div {width: 90%; margin: auto;}
+    div, p {width: 90%; margin: auto;}
     textarea {width:100%; padding:0.3em; min-height:25em; outline:none; font-family: 'Noto Serif Bengali', serif; font-size:1em; font-weight:300;}
+    p+p{ margin: 1em;}
     table {width:100%;}
     td {width:50%;}
     button {padding: 0.5em 1.5em; background-color: white; color:black; font-size:1.1em; font-family: 'Noto Serif Bengali', serif; font-weight:200; width:100%;}
+    span.btn { padding: 0px 5px; border: 1px solid white; }
     </style>
 </head>
 <body>
@@ -25,6 +27,11 @@
         <tr><td><button onclick="normalizeNukta()">নুকতা সংশোধন</button></td><td><button onclick="copy()">অনুলিপি</button></td></tr>
         <tr><td><button onclick="sentSplit()">বাক্য বিভাজন</button></td><td><button onclick="wordSplit()">শব্দ বিভাজন</button></td></tr>
     </table></div>
+    <h2>নথি</h2>
+    <p><span class="btn">অনুলিপি</span> বাটনে ক্লিক করলে টেক্সট লেখার বাক্সে থাকা লেখা ক্লিপবোর্ডে কপি হয়ে যাবে।</p>
+    <p><span class="btn">নুকতা সংশোধন</span> বাটনে ক্লিক করলে টেক্সটে নুকতাওয়ালা বর্ণে যদি নুকতা ক্যারেক্টার আলাদাভাবে যোগ করা হয়, তবে তা যথাযথ ইউনিকোড ক্যারেক্টার দ্বারা পরিবর্তিত হয়ে যাবে। যেমন: 'ড়' = ['ড' + '়'], তাই এখানে 'ড়' অক্ষর দ্বারা এটি পরিবর্তিত হবে। এক্ষেত্রে কেবল ব়, ড়, ঢ় এবং য় পরিবর্তিত হবে এবং অন্য কোনো অক্ষরে নুকতা থাকলে সে নুকতা মুছে যাবে।</p>
+    <p><span class="btn">বাক্য বিভাজন</span> বাটন টেক্সটকে বাক্যে বিভাজিত করে প্রতিটি লাইনে একটি করে বাক্য প্রদর্শিত করে।</p>
+    <p><span class="btn">শব্দ বিভাজন</span> বাটন টেক্সটের সকল শব্দকে আলাদা করে প্রতিটি লাইনে একটি করে শব্দ প্রদর্শন করে। এক্ষেত্রে প্রতিটি শব্দ একবারই প্রদর্শিত হবে এবং তা বর্ণের ক্রমানুসারে প্রদর্শিত হবে।</p>
     <script>
     window.onbeforeunload = function() {
         return "পৃষ্ঠা পুনরায় লোড করলে লেখা মুছে যাবে।";
