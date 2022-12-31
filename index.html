@@ -24,8 +24,9 @@
     <h2>নিচের বাক্সে লিখুন</h2>
     <div><textarea id="textarea" placeholder="এখানে লিখুন..."></textarea></div>
     <div style="text-align:center;"><table>
-        <tr><td><button onclick="normalizeNukta()">নুকতা সংশোধন</button></td><td><button onclick="copy()">অনুলিপি</button></td></tr>
+        <tr><td><button onclick="undo()">পূর্বাবস্থায় ফেরত</button></td><td><button onclick="copy()">অনুলিপি</button></td></tr>
         <tr><td><button onclick="sentSplit()">বাক্য বিভাজন</button></td><td><button onclick="wordSplit()">শব্দ বিভাজন</button></td></tr>
+        <tr><td><button onclick="normalizeNukta()">নুকতা সংশোধন</button></td></tr>
     </table></div>
     <h2>নথি</h2>
     <p><span class="btn">অনুলিপি</span> বাটনে ক্লিক করলে টেক্সট লেখার বাক্সে থাকা লেখা ক্লিপবোর্ডে কপি হয়ে যাবে।</p>
@@ -35,6 +36,13 @@
     <script>
     window.onbeforeunload = function() {
         return "পৃষ্ঠা পুনরায় লোড করলে লেখা মুছে যাবে।";
+    }
+    var actions = [];
+    function undo() {
+        let textarea = document.getElementById("textarea");
+        if (actions.length !== 0) {
+        textarea.value = actions.pop();
+        }
     }
     function copy() {
         let textarea = document.getElementById("textarea");
@@ -49,6 +57,7 @@
         text = text.replace('ঢ়', 'ঢ়');
         text = text.replace('য়', 'য়');
         text = text.replace('়', '');
+        action.push(textarea.value);
         textarea.value = text;
     }
     function strip(sent) {
@@ -60,6 +69,7 @@
     function sentSplit() {
         let textarea = document.getElementById("textarea");
         let text = textarea.value;
+        actions.push(text);
         let tracker = [...text.matchAll(/[\।\?\!]/g)];
         sentences = []
         let c = 0;
@@ -78,6 +88,7 @@
     function wordSplit() {
         let textarea = document.getElementById("textarea");
         let text = textarea.value;
+        actions.push(text);
         let words = text.split(/[\s\.\?\!।\;\*\&\#\(\)\[\]\{\}\|\+\—\%]/);
         words = removeDuplicates(words).sort();
         if (words[0] == '') {
