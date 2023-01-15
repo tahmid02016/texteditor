@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta name="robots" content="noindex">
+    <title>অনুপেলন</title>
+    <style>
+        * { box-sizing: border-box; }
+        html, body {margin:0; padding:0;}
+        body { background-color:#181818; min-height:100vh; font-size:18px; }
+        textarea { width:90%; height:75vh; margin:20px auto; padding:0.3em; outline:none; font-size:1em; background-color:white; display:block; }
+        button {padding: 0.5em 1.5em; background-color: white; color:black; font-size:1.1em; width:50%; margin:20px auto; display:block; }
+        #msg { color: white; margin: 20px; }
+    </style>
+</head>
+<body>
+    <div id="msg">নিচের লেখার অংশে বাক্যগুলো লিখুন।</div>
+    <textarea id="textarea" placeholder="এখানে লিখুন..."></textarea>
+    <button id="btn" onclick="copy()">লোড করুন</button>
+    <script>
+        window.onbeforeunload = function() { return "পৃষ্ঠা পুনরায় লোড করলে লেখা মুছে যাবে।"; }
+        var firstTime = true;
+        var lines = [];
+        var index = 0;
+        function copy() {
+            editor = document.getElementById('textarea');
+            if (firstTime) {
+                let text = editor.value;
+                lines = text.split('\n');
+                document.getElementById('btn').innerHTML = 'অনুলিপি করুন';
+                document.getElementById('msg').innerHTML = "বাক্য অনুলিপি করতে নিচের <span style='border:1px solid black;'>অনুলিপি করুন</span> বাটনে ক্লিক করুন।"
+                firstTime = false;
+                editor.value = lines[0];
+            }
+            else {
+                if (index >= lines.length) {
+                    editor.value = "";
+                    document.getElementById('msg').innerHTML = " সব বাক্য অনুলিপি করা সম্পন্ন। আবার নতুন করে বাক্য লোড করতে নিচের বাক্সে বাক্যগুলো লিখুন।";
+                    firstTime = true;
+                    document.getElementById('btn').innerHTML = "লোড করুন";
+                }
+                else {
+                    editor.value = lines[index];
+                    editor.select();
+                    document.execCommand("copy");
+                    index = index+1;
+                }
+            }
+        }
+    </script>
+</body>
+</html>
