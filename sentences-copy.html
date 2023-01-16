@@ -43,9 +43,13 @@
                     btn.innerHTML = "লোড করুন";
                 }
                 else {
-                    editor.value = lines[index];
-                    editor.select();
+                    var dummy = document.createElement("textarea");
+                    document.body.appendChild(dummy);
+                    dummy.value = lines[index];
+                    dummy.select()
                     document.execCommand("copy");
+                    document.body.removeChild(dummy);
+                    editor.value = lines[index];
                     index = index+1;
                     msg.innerHTML = "বাক্য অনুলিপি করতে নিচের <span style='border:1px solid black;'>অনুলিপি করুন</span> বাটনে ক্লিক করুন। (অগ্রগতি: "+index+"/"+lines.length+")";
                 }
