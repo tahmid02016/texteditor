@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <meta name="robots" content="noindex">
-    <title>অনুপেলন</title>
+    <title>অনুলেপন</title>
     <style>
         * { box-sizing: border-box; }
         html, body {margin:0; padding:0;}
@@ -24,27 +24,30 @@
         var lines = [];
         var index = 0;
         function copy() {
-            editor = document.getElementById('textarea');
+            var editor = document.getElementById('textarea');
+            var btn = document.getElementById('btn');
+            var msg = document.getElementById('msg');
             if (firstTime) {
                 let text = editor.value;
                 lines = text.split('\n');
-                document.getElementById('btn').innerHTML = 'অনুলিপি করুন';
-                document.getElementById('msg').innerHTML = "বাক্য অনুলিপি করতে নিচের <span style='border:1px solid black;'>অনুলিপি করুন</span> বাটনে ক্লিক করুন।"
+                btn.innerHTML = 'অনুলিপি করুন';
+                msg.innerHTML = "বাক্য অনুলিপি করতে নিচের <span style='border:1px solid black;'>অনুলিপি করুন</span> বাটনে ক্লিক করুন। (অগ্রগতি: 0/"+lines.length+")";
                 firstTime = false;
                 editor.value = lines[0];
             }
             else {
                 if (index >= lines.length) {
                     editor.value = "";
-                    document.getElementById('msg').innerHTML = " সব বাক্য অনুলিপি করা সম্পন্ন। আবার নতুন করে বাক্য লোড করতে নিচের বাক্সে বাক্যগুলো লিখুন।";
+                    msg.innerHTML = " সব বাক্য অনুলিপি করা সম্পন্ন। আবার নতুন করে বাক্য লোড করতে নিচের বাক্সে বাক্যগুলো লিখুন।";
                     firstTime = true;
-                    document.getElementById('btn').innerHTML = "লোড করুন";
+                    btn.innerHTML = "লোড করুন";
                 }
                 else {
                     editor.value = lines[index];
                     editor.select();
                     document.execCommand("copy");
                     index = index+1;
+                    msg.innerHTML = "বাক্য অনুলিপি করতে নিচের <span style='border:1px solid black;'>অনুলিপি করুন</span> বাটনে ক্লিক করুন। (অগ্রগতি: "+index+"/"+lines.length+")";
                 }
             }
         }
