@@ -90,7 +90,7 @@
         let textarea = document.getElementById("textarea");
         let text = textarea.value;
         actions.push(text);
-        let words = text.split(/[\s\.\?\!।\;\*\&\#\(\)\[\]\{\}\|\+\—\%]/);
+        let words = text.split(/[\s\.\,\`\"\'\”\“\’\‘\?\!।\;\*\&\#\(\)\[\]\{\}\|\+\—\%]/);
         words = removeDuplicates(words).sort();
         if (words[0] == '') {
             words.shift(0);
