@@ -26,7 +26,7 @@
     <div style="text-align:center;"><table>
         <tr><td><button onclick="undo()">পূর্বাবস্থায় ফেরত</button></td><td><button onclick="copy()">অনুলিপি</button></td></tr>
         <tr><td><button onclick="sentSplit()">বাক্য বিভাজন</button></td><td><button onclick="wordSplit()">শব্দ বিভাজন</button></td></tr>
-        <tr><td><button onclick="normalizeNukta()">নুকতা সংশোধন</button></td></tr>
+        <tr><td><button onclick="normalizeNukta()">নুকতা সংশোধন</button></td><td><button onclick="clear()">পরিষ্কার</td></tr>
     </table></div>
     <h2>নথি</h2>
     <p><span class="btn">অনুলিপি</span> বাটনে ক্লিক করলে টেক্সট লেখার বাক্সে থাকা লেখা ক্লিপবোর্ডে কপি হয়ে যাবে।</p>
@@ -97,6 +97,10 @@
         }
         textarea.value = words.join('\n');
     }
+    function clear() {
+        let textarea = document.getElementById("textarea");
+        textarea.value = "";
+   }
     </script>
 </body>
 </html>
