@@ -2,38 +2,94 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="theme-color" content="#0D0D0D">
+    <meta name="description" content="Minimal fullscreen text reader and writer">
+
+    <link rel="manifest" href="manifest.json">
+
+    <link rel="apple-touch-icon" href="icon-192.png">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
+
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-    <title>Fullscreen Textbox</title>
+
+    <title>Reader</title>
+
     <style>
-        html, body {
+        html,
+        body {
             width: 100%;
             height: 100%;
             margin: 0;
+            overflow: hidden;
+            background-color: #0D0D0D;
         }
-        
+
         textarea {
             color: #FFFFFF;
             background-color: #0D0D0D;
+
             width: 100%;
             height: 100%;
+
             border: none;
             outline: none;
             resize: none;
+
             box-sizing: border-box;
-            line-height: 1.5em;
+
+            line-height: 1.6em;
             padding: 18px;
+
             font-size: 18px;
+
             font-family: "Montserrat", sans-serif;
             font-optical-sizing: auto;
-            font-weight: 400;
+            font-weight: 500;
             font-style: normal;
+        }
+
+        textarea::placeholder {
+            color: #888888;
         }
     </style>
 </head>
+
 <body>
-    <textarea placeholder="Type here..."></textarea>
+
+    <textarea id="editor"
+              placeholder="Type here..."></textarea>
+
+    <script>
+        const editor = document.getElementById("editor");
+
+        // Restore saved text
+        editor.value = localStorage.getItem("reader-content") || "";
+
+        // Auto-save
+        editor.addEventListener("input", () => {
+            localStorage.setItem("reader-content", editor.value);
+        });
+
+        // Register service worker
+        if ("serviceWorker" in navigator) {
+            window.addEventListener("load", () => {
+                navigator.serviceWorker
+                    .register("./service-worker.js")
+                    .then(() => {
+                        console.log("Service Worker Registered");
+                    })
+                    .catch(err => {
+                        console.error("Service Worker Error:", err);
+                    });
+            });
+        }
+    </script>
+
 </body>
 </html>
